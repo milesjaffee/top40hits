@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Personal Library</title>
+  <title>Top 40</title>
   <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
   <meta name="description" content="">
@@ -20,11 +20,68 @@
 
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-  <!-- Your contents -->
+  <header>Top 40 Tunes</header>
+
+  <div id="container">
+
+    <div id="song-container">
+      <p>Songs</p>
+
+      <table>
+        <thead>
+          <th>Artist</th>
+          <th>Title</th>
+        </thead>
+
+        <tbody id="song-table-body">
+
+        </tbody>
+      </table>
+
+    </div>
+
+    <div id="search-terms">
+
+      <p>Search</p>
+
+      <form id="searchForm">
+        <label for="artistsDropdown">Artists:</label>
+        <select id="artistsDropdown" name="artists">
+          <!-- Empty dropdown -->
+        </select><br><br>
+    
+        <label for="keywordInput">Keyword:</label>
+        <input type="text" id="keywordInput" name="keyword"><br><br>
+
+        <label for="songsPerPage">Songs per page:</label>
+        <select id="songsPerPage" name="songsPerPage">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25" selected="1">25</option>
+          <option value="50">50</option>
+        </select><br><br>
+    
+        <button type="button" id="searchButton">Search</button><br><br>
+    
+        <button type="button" id="prevButton">&lt;&lt;</button>
+        <button type="button" id="nextButton">&gt;&gt;</button><br><br>
+
+        <p id="pagination"></p>
+    
+      </form>  
+
+    </div>
+
+  </div>
 
   <script src="js/vendor/jquery.min.js" crossorigin="anonymous"></script>
   <script src="js/vendor/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
