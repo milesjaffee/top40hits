@@ -14,21 +14,42 @@ app.listen(3000, () => console.log("Starting up Top 40 Search"));
 const db = require('better-sqlite3')('top40.db');
 db.pragma('journal_mode = WAL');
 
-const songs = db.prepare("SELECT * FROM songlist");
-
-function returnSongs(res) {
-  let returningList = [];
-  for (let song of songs.iterate()) {
-    returningList.push(song);
-  }
-  const ret = JSON.stringify(returningList);
-  res.end(ret);
-}
+const ALLSONGS = db.prepare("SELECT * FROM songlist");
 
 app.get("/load", (req, res) => {
-  returnSongs(res);
 
-  const artist = req.query.artist;
-  const title = req.query.title;
+  returnSongs(req, res);
+
 });
+
+function returnSongs(req, res) {
+  let allList = [];
+
+  for (let song of ALLSONGS.iterate()) {
+    allList.push(song);
+  }
+
+  let reqList = [];
+  let reqstring = "SELECT * FROM songlist WHERE ";
+  if (req.query.artist) {
+    reqstring += `artist = '${req.query.artist}' & `;
+  }
+  else reqstring += "TRUE & ";
+
+  if (req.query.title) {
+    reqstring += `title LIKE '%${req.query.title}%'`;
+  }
+  else reqstring += "TRUE";
+  let reqsongs = db.prepare(reqstring);
+
+  for (let song of reqsongs.iterate()) {
+    reqList.push(song);
+  }
+
+  let retList = [allList, reqList];
+
+  
+  const ret = JSON.stringify(retList);
+  res.end(ret);
+}
 
