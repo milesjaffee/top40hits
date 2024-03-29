@@ -18,38 +18,54 @@ const ALLSONGS = db.prepare("SELECT * FROM songlist");
 
 app.get("/load", (req, res) => {
 
-  returnSongs(req, res);
+  returnFullSongs(req, res);
 
 });
 
-function returnSongs(req, res) {
-  let allList = [];
+app.get("/search", (req, res) => {
+
+
+
+  returnSongs(req, res);
+});
+
+function returnFullSongs(req, res) {
+
+  allList = [];
 
   for (let song of ALLSONGS.iterate()) {
     allList.push(song);
   }
 
+  const ret = JSON.stringify(allList);
+  res.end(ret);
+
+
+}
+
+function returnSongs(req, res) {
+
+  
+
   let reqList = [];
   let reqstring = "SELECT * FROM songlist WHERE ";
   if (req.query.artist) {
-    reqstring += `artist = '${req.query.artist}' & `;
-  }
-  else reqstring += "TRUE & ";
+    reqstring += `artist = '${req.query.artist}' AND `;
+  } else reqstring += "TRUE AND ";
 
   if (req.query.title) {
     reqstring += `title LIKE '%${req.query.title}%'`;
-  }
-  else reqstring += "TRUE";
+  } else reqstring += "TRUE";
+
+  console.log(reqstring);
   let reqsongs = db.prepare(reqstring);
 
   for (let song of reqsongs.iterate()) {
     reqList.push(song);
   }
 
-  let retList = [allList, reqList];
-
   
-  const ret = JSON.stringify(retList);
+  const ret = JSON.stringify(reqList);
   res.end(ret);
 }
 

@@ -2,22 +2,23 @@ $ ( () => {
     init();
 });
 
-var pageLength = 25;
-var currAddress = 0;
+var pageLength;
+var currAddress;
 var songList;
 
 function init() {
 
-    
     $.ajax(
         "/load",
         {
             type: "GET",
             dataType: "json",
             success: function (songs) {
-                songList = songs[1];
-                loadSongs(songs[1]);
-                loadArtists(songs[0]); //default, pre filled list
+                pageLength = 25;
+                currAddress = 0;
+                loadArtists(songs); //default, pre filled list
+                loadSongs(songs);
+                
             },
             error: function() {console.log("error!");
             }
@@ -30,7 +31,6 @@ function loadArtists(songs) {
     $("#artistsDropdown").empty();
     artists = [];
     songs.forEach((song) => {
-        console.log("trying to add an artist");
         if (!(artists.includes(song.artist))) {
             artists.push(song.artist);
         }
@@ -50,7 +50,6 @@ $("#prevButton").click((event) =>
         if (currAddress - pageLength >= 0) 
         {currAddress = currAddress - pageLength;
         loadSongs(songList);
-        console.log(currAddress);
         };
     }
 );
@@ -60,8 +59,7 @@ $("#nextButton").click((event) =>
     event.preventDefault();
     if (currAddress + pageLength < songList.length) 
     {currAddress = currAddress + pageLength;
-        console.log(currAddress);
-        console.log(songList.length);
+
     loadSongs(songList);
 
     
@@ -69,7 +67,42 @@ $("#nextButton").click((event) =>
 }
 );
 
+$("#searchButton").click((event) =>
+{
+    event.preventDefault();
+
+    $.ajax(
+        "/search",
+        {
+            type: "GET",
+            processData: true,
+            data: {
+                title: $("#keywordInput").val(),
+                artist: $("#artistsDropdown").val(),
+            },
+            dataType: "json",
+
+            success: function(songs) {
+                pageLength = parseInt($("#songsPerPage").val());
+                currAddress = 0;
+                loadSongs(songs);
+            
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Error: " + jqXHR.responseText);
+                alert("Error: " + textStatus);
+                alert("Error: " + errorThrown);
+              }
+        }
+    );
+    $("#keywordInput").val("");
+    $("#artistsDropdown").val("");
+
+});
+
 function loadSongs(songs) {
+    songList = songs;
     $("#song-table-body").empty();
     let numSongsDisplayed = 0;
 
