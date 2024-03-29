@@ -85,29 +85,58 @@ textarea {
    ========================================================================== */
 
 
+body {
+  background-color: #99F061;
+}
 #container {
   display: grid;
   grid-template-columns: 2fr 1fr;
   font-family: "Saira Condensed", sans-serif;
   width: 85%;
   margin: 20px;
+  column-gap: 10px;
+  background-color: #11F061;
 }
 header {
   font-size: 2em;
   font-family: "Saira Condensed", sans-serif;
   text-align: center;
+  background-color: #F5E600;
 }
 
-table>* {
-  border: 2px solid;
-
-}
-
-table td, th {
-  border: 2px solid;
+table, th, td {
+  border: 1px solid black;
   border-radius: 5px;
-  margin: 3px;
 }
+table {
+
+  width: 100%;
+  border-spacing: 10px 10px;
+}
+
+.tableartist {
+  text-align: left;
+}
+.tabletitle {
+  text-align: right;
+}
+.numone {
+  font-style: italic;
+  font-weight: bold;
+  background-image: linear-gradient(#99F061, #11F061);
+}
+
+form {
+  background-color: #C6F011;
+}
+
+button, input, select {
+  background-color: #11F061;
+}
+
+
+
+
 
 
 

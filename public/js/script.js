@@ -36,7 +36,7 @@ function loadArtists(songs) {
         }
     });
 
-    $("#artistsDropdown").append(`<option value="" selected>   </option>`);
+    $("#artistsDropdown").append(`<option value="" selected>Any artist</option>`);
 
     artists.forEach((artistItem) => {
         $("#artistsDropdown").append(`<option value="${artistItem}">${artistItem}</option>`);
@@ -108,7 +108,10 @@ function loadSongs(songs) {
 
     songs.slice(currAddress,currAddress+pageLength).forEach((song) => {
 
-        $("#song-table-body").append(`<tr><td>${song.artist}</td><td><em>${song.title}</em></td></tr>`);
+        let numone = "";
+        if (song.numone) {numone = 'class="numone"'}
+
+        $("#song-table-body").append(`<tr ${numone}><td>${song.id}</td><td class="tableartist">${song.artist}</td><td class="tabletitle">${song.title}</td></tr>`);
         numSongsDisplayed ++;
     });
 
