@@ -30,10 +30,13 @@ function loadArtists(songs) {
     $("#artistsDropdown").empty();
     artists = [];
     songs.forEach((song) => {
-        if (!song.artist.in(artists)) {
-            artists.add(song.artist);
+        console.log("trying to add an artist");
+        if (!(artists.includes(song.artist))) {
+            artists.push(song.artist);
         }
     });
+
+    $("#artistsDropdown").append(`<option value="" selected>   </option>`);
 
     artists.forEach((artistItem) => {
         $("#artistsDropdown").append(`<option value="${artistItem}">${artistItem}</option>`);
