@@ -34,6 +34,7 @@ function returnFullSongs(req, res) {
   allList = [];
 
   for (let song of ALLSONGS.iterate()) {
+    song.title = song.title.replace(/\*/g, "'");
     allList.push(song);
   }
 
@@ -61,6 +62,7 @@ function returnSongs(req, res) {
   let reqsongs = db.prepare(reqstring);
 
   for (let song of reqsongs.iterate()) {
+    song.title = song.title.replace(/\*/g, "'");
     reqList.push(song);
   }
 

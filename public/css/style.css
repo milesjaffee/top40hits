@@ -86,7 +86,7 @@ textarea {
 
 
 body {
-  background-color: #99F061;
+  background-color: #3f4739;
 }
 #container {
   display: grid;
@@ -95,13 +95,13 @@ body {
   width: 85%;
   margin: 20px;
   column-gap: 10px;
-  background-color: #11F061;
+  background-color: #a5c0af;
 }
 header {
   font-size: 2em;
   font-family: "Saira Condensed", sans-serif;
   text-align: center;
-  background-color: #F5E600;
+  background-color: #918d54;
 }
 
 table, th, td {
@@ -127,11 +127,11 @@ table {
 }
 
 form {
-  background-color: #C6F011;
+  background-color: #918d5444;
 }
 
 button, input, select {
-  background-color: #11F061;
+  background-color: #a5c0af;
 }
 
 
